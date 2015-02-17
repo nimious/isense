@@ -19,7 +19,7 @@ following platforms have been built and tested:
 
 - ~~Linux~~
 - ~~Mac OSX~~
-- ~~Windows~~
+- Windows
 
 
 ## Prerequisites
@@ -36,7 +36,9 @@ TODO
 
 ### Windows
 
-TODO
+Download the latest InterSense SDK or Library from the InterSense web site and copy the
+contained ``isense.dll`` file into your program's folder.
+
 
 ## Dependencies
 
@@ -45,6 +47,11 @@ io-isense does not have any dependencies to other Nim packages at this time.
 
 ## Usage
 
+Import the `isense` module from this package to make the bindings available in your project:
+
+```Nimrod
+import spnav
+```
 
 ## Support
 
