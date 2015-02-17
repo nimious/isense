@@ -1,0 +1,6 @@
+nimcache
+.directory
+*.dll
+*.exe
+*.sublime*
+examples/tracker_data_example
