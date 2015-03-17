@@ -29,19 +29,19 @@ libraries for your platform.
 
 ### Linux
 
-Download the latest ``InterSense SDK`` or ``Library`` from the InterSense web
-site and copy the 32-bit or 64-bit *libisense.so* file into your program's
+Download the latest *InterSense SDK* or *Library* from the InterSense web
+site and copy the 32-bit or 64-bit `libisense.so` file into your program's
 folder.
 
 ### Mac OSX
 
-Download the latest ``InterSense SDK`` or ``Library`` from the InterSense web
-site and copy the contained *libisense.dylib* file into your program's folder.
+Download the latest *InterSense SDK* or *Library* from the InterSense web
+site and copy the contained `libisense.dylib` file into your program's folder.
 
 ### Windows
 
-Download the latest ``InterSense SDK`` or ``Library`` from the InterSense web
-site and copy the 32-bit or 64-bit *isense.dll* into your program's folder.
+Download the latest *InterSense SDK* or *Library* from the InterSense web
+site and copy the 32-bit or 64-bit `isense.dll` into your program's folder.
 
 
 ## Dependencies
