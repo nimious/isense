@@ -4,9 +4,9 @@
 ## See the file LICENSE included in this distribution for licensing details.
 ## GitHub pull requests are encouraged. (c) 2015 Headcrash Industries LLC.
 
-when defined(linux):
+when defined(linux) and not defined(android):
   const dllname = "libisense.so"
-elif defined(macos):
+elif defined(macosx):
   const dllname = "libisense.dylib"
 elif defined(windows):
   const dllname = "isense.dll"

@@ -1,7 +1,9 @@
 nimcache
 .directory
-*.dll
+*.dl
+*.dylib
 *.exe
 *.log
+*.so
 *.sublime*
 examples/tracker_data_example
