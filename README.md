@@ -69,5 +69,6 @@ visit the Oculus web sites below.
 
 ## References
 
-- [InterSense Homepage](https://www.intersense.com)
-- [InterSense SDK Download Page](https://http://www.intersense.com/pages/33/154/)
+* [InterSense Homepage](https://www.intersense.com)
+* [InterSense SDK Download Page](https://http://www.intersense.com/pages/33/154/)
+* [Nim Programming Language](http://nim-lang.org/)

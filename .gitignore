@@ -1,6 +1,6 @@
 nimcache
 .directory
-*.dl
+*.dll
 *.dylib
 *.exe
 *.log
