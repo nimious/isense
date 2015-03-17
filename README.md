@@ -14,7 +14,7 @@ the InertiaCube series and IS series systems.
 
 ## Supported Platforms
 
-io-isense was last built and tested with `InterSense SDK 4.2381`. The bindings
+io-isense was last built and tested with ``InterSense SDK 4.2381``. The bindings
 support the following platforms:
 
 - Linux
@@ -35,7 +35,7 @@ copy the 32-bit or 64-bit *libisense.so* file into your program's folder.
 ### Mac OSX
 
 Download the latest InterSense SDK or Library from the InterSense web site and
-copy the contained ``libisense.dylib`` file into your program's folder.
+copy the contained *libisense.dylib* file into your program's folder.
 
 ### Windows
 
