@@ -14,7 +14,7 @@ the InertiaCube series and IS series systems.
 
 ## Supported Platforms
 
-io-isense was last built and tested with ``InterSense SDK 4.2381``. The bindings
+io-isense was last built and tested with *InterSense SDK 4.2381*. The bindings
 support the following platforms:
 
 - Linux
