@@ -22,27 +22,26 @@ type
   IsdHwnd* = cint
     ## Window handle.
 
-
-  IsdBool* {.size: sizeof(cint).} = enum ## \
+  IsdBool* {.size: sizeof(cint).} = enum
     ## Boolean return values.
     isdFalse = 0,
     isdTrue = 1
 
-
-  IsdOnOff* {.size: sizeof(cint).} = enum ## \
+  IsdOnOff* {.size: sizeof(cint).} = enum
     ## On and off states.
     isdOff = 0
     isdOn = 2
 
-
-  IsdSystemType* {.pure, size: sizeof(cint).} = enum ## \
+  IsdSystemType* {.pure, size: sizeof(cint).} = enum
     ## Supported tracking system types.
-    none = 0, ## Not found, unable to identify, or not initialized
-    precisionSeries, ## InertiaCube, NavChip, IS-300, IS-600, IS-900 and IS-1200
-    intertraxSeries ## InterTrax
+    none = 0,
+      ## Not found, unable to identify, or not initialized
+    precisionSeries,
+      ## InertiaCube, NavChip, IS-300, IS-600, IS-900 and IS-1200
+    intertraxSeries
+      ## InterTrax
 
-
-  IsdSystemModel* {.pure, size: sizeof(cint).} = enum ## \
+  IsdSystemModel* {.pure, size: sizeof(cint).} = enum
     ## Supported tracking system models.
     unknown = 0,
     is300, ## 3DOF system (unsupported)
@@ -64,8 +63,7 @@ type
     icubeBT, ## InertiaCube BT
     icube4 ## InertiaCube4
 
-
-  IsdInterfaceType* {.pure, size: sizeof(cint).} = enum ## \
+  IsdInterfaceType* {.pure, size: sizeof(cint).} = enum
     ## Supported device interface types.
     unknown = 0,
     serial,
@@ -89,19 +87,17 @@ else:
 
 
 type
-  IsdAngleFormat* {.pure, size: sizeof(cint).} = enum ## \
+  IsdAngleFormat* {.pure, size: sizeof(cint).} = enum
     ## Supported orientation angle formats.
     euler = 1
     quaternion = 2
 
-
-  IsdCoordFrame* {.pure, size: sizeof(cint).} = enum ## \
+  IsdCoordFrame* {.pure, size: sizeof(cint).} = enum
     ## Supported coordinate frames.
     defaultFrame = 1
     vsetFrame = 2
 
-
-  IsdTrackerSyncState* {.pure, size: sizeof(cint).} = enum ## \
+  IsdTrackerSyncState* {.pure, size: sizeof(cint).} = enum
     ## Tracker synchronization states.
     ##
     ## Note: used for IS-X devices only.
@@ -110,22 +106,21 @@ type
     userGenlock, ## On (hardware genlock frequency is specified by the user)
     userFrequency ## On (no hardware signal, lock to user specified frequency)
 
-
-  IsdBatteryState* {.pure, size: sizeof(cuchar).} = enum ## \
+  IsdBatteryState* {.pure, size: sizeof(cuchar).} = enum
     ## Battery states
     notAvailable = 0,
     voltageLow,
     voltageOk
 
 const
-  isdMaxButtons* = 8 ## Number of supported stylus buttons
-  isdMaxChannels* = 10 ## Hardware is limited to 10 analog/digital input
-    ## channels per station
-  isdMaxAuxInputs* = 4 ## Maximum supported number of bytes for auxiliary input
-    ## data
-  isdMaxAuxOutputs* = 4 ## Maximum supported number of bytes for auxiliary
-    ## output data
-
+  isdMaxButtons* = 8
+    ## Number of supported stylus buttons
+  isdMaxChannels* = 10
+    ## Hardware is limited to 10 analog/digital input channels per station
+  isdMaxAuxInputs* = 4
+    ## Maximum supported number of bytes for auxiliary input data
+  isdMaxAuxOutputs* = 4
+    ## Maximum supported number of bytes for auxiliary output data
 
 type
   IsdTrackerHandle* = cint
@@ -137,37 +132,55 @@ type
     ##
     ## The first six fields are for informational purpose only. The remaining
     ## fields can be configured in the isenseX.ini configuration file.
-    libVersion*: cfloat ## InterSense Library version (version of DLL or shared
-      ## library)
-    trackerType*: IsdSystemType ## The type of tracking system
-    trackerModel*: IsdSystemModel ## The tracking device model
-    port*: cint ## Number of the RS232 port that the tracker is connected to
-      ## (starts with 1 for COM1/ttyS0)
-    recordsPerSec*: cuint ## Data records per second from tracker
-    kBitsPerSec*: cfloat ## kB per second of data from tracker
-    syncState*: IsdTrackerSyncState ## Synchronization state
-    syncRate*: cfloat ## Number of hardware sync signals per second, or, if
-      ## `SyncState` is 3, data record output frequency
-    syncPhase*: cint ## The time within the sync period at which a data record
-      ## is transmitted. The phase point is specified as a percentage of the
-      ## sync period. 0% (the default) instructs the tracker to output a data
-      ## record as soon as possible after the sync period begins. 100% delays
-      ## the output of a record as much as possible before the next sync period
-      ## begins.
-    Interface*: IsdInterfaceType ## Hardware interface type
-    ultTimeout*: cint ## Ultrasonic timeout (sampling rate); IS-900 only
-    ultVolume*: cint ## Ultrasonic speaker volume; IS-900 only
-    dwReserved4*: cint ## Reserved for future use
-    firmwareRev*: cfloat ## Firmware revision fopr tracker
-    fReserved2*: cfloat ## Reserved for future use
-    fReserved3*: cfloat ## Reserved for future use
-    fReserved4*: cfloat ## Reserved for future use
-    ledEnable*: IsdBool ## Enables flashing blue LEDs on SoniStrips/SoniDiscs if
+    libVersion*: cfloat
+      ## InterSense Library version (version of DLL or shared library)
+    trackerType*: IsdSystemType
+      ## The type of tracking system
+    trackerModel*: IsdSystemModel
+      ## The tracking device model
+    port*: cint
+      ## Number of the RS232 port that the tracker is connected to (starts with
+      ## 1 for COM1/ttyS0)
+    recordsPerSec*: cuint
+      ## Data records per second from tracker
+    kBitsPerSec*: cfloat
+      ## kB per second of data from tracker
+    syncState*: IsdTrackerSyncState
+      ## Synchronization state
+    syncRate*: cfloat
+      ## Number of hardware sync signals per second, or, if `SyncState` is 3,
+      ## data record output frequency
+    syncPhase*: cint
+      ## The time within the sync period at which a data record is transmitted.
+      ## The phase point is specified as a percentage of the sync period. 0%
+      ## (the default) instructs the tracker to output a data record as soon as
+      ## possible after the sync period begins. 100% delays the output of a
+      ## record as much as possible before the next sync period begins.
+    Interface*: IsdInterfaceType
+      ## Hardware interface type
+    ultTimeout*: cint
+      ## Ultrasonic timeout (sampling rate); IS-900 only
+    ultVolume*: cint
+      ## Ultrasonic speaker volume; IS-900 only
+    dwReserved4*: cint
+      ## Reserved for future use
+    firmwareRev*: cfloat
+      ## Firmware revision fopr tracker
+    fReserved2*: cfloat
+      ## Reserved for future use
+    fReserved3*: cfloat
+      ## Reserved for future use
+    fReserved4*: cfloat
+      ## Reserved for future use
+    ledEnable*: IsdBool
+      ## Enables flashing blue LEDs on SoniStrips/SoniDiscs if
       ## `isdTrue <#IsdBool>`_; IS-900 only
-    bReserved2*: IsdBool ## Reserved for future use
-    bReserved3*: IsdBool ## Reserved for future use
-    bReserved4*: IsdBool ## Reserved for future use
-
+    bReserved2*: IsdBool
+      ## Reserved for future use
+    bReserved3*: IsdBool
+      ## Reserved for future use
+    bReserved4*: IsdBool
+      ## Reserved for future use
 
 type
   IsdStationInfo* = object
@@ -177,44 +190,55 @@ type
     ## passed to `isdSetStationConfig <#isdSetStationConfig>`_ or
     ## `isdGetStationConfig <#isdGetStationConfig>`_ with InterTrax,
     ## `isdFalse <#IsdBool>`_ is returned.
-    id*: cint ## Unique number identifying a station. It is the same as that
-      ## passed to the `isdSetStationConfig` and `isdGetStationConfig` functions
-      ## and can be `1` to `isdMaxStations <#isdMaxStations>`_
-    state*: IsdBool ## Whether the station is turned on or off
+    id*: cint
+      ## Unique number identifying a station. It is the same as that passed to
+      ## the `isdSetStationConfig` and `isdGetStationConfig` functions and can
+      ## be `1` to `isdMaxStations <#isdMaxStations>`_
+    state*: IsdBool
+      ## Whether the station is turned on or off
       ## (`isdTrue <#IsdBool>`_ = ON, `isdFalse <#IsdBool>`_ = OFF).
       ## InertiaCubes are considered to be a tracking system consisting of one
       ## station, which cannot be turned off, so this field will always be
       ## `true <#IsdBool>`_. The IS-900 may have up to 7 stations
       ## connected.
-    compass*: IsdOnOff ## Controls the state of the compass component (only
-      ## available for InertiaCube devices). The compass is only used when the
-      ## station is is configured GEOS or Dual modes. In Fusion mode, compass
-      ## readings are not used, regardless of this setting. When the station is
-      ## configured for full compass mode, the readings produced by the
-      ## magnetometers inside the InertiaCube are used as absolute reference
-      ## orientation for yaw. Compasses can be affected by metallic objects and
-      ## electronic equipment in close proximity to an InertiaCube.
-    inertiaCube*: cint ## InertiaCube associated with this station. If no
-      ## InertiaCube is assigned, this number is `-1`. Otherwise, it is a
-      ## positive number between `1` and `isdMaxStations <#isdMaxStations>`_.
-      ## Only relevant for IS-300 and IS-600 series devices. For IS-900 systems
-      ## it is always the same as the station number, and for InterTrax and
-      ## InertiaCubes it is always `1`.
-    enhancement*: cint ## Perceptual enhancement level (0, 1, or 2)
-    sensitivity*: cint ## Sensitivity level (1 to 4) if `enhancement` is 1 or 2
-    prediction*: cint ## Motion prediction (0 to 50 msec); only supported by
-      ## IS-300, IS-600, IS-900 and InertiaCubes; not available for InterTrax
-    angleFormat*: IsdAngleFormat ## Format of returned orientation angles. Used
-      ## only for IS-900 and IS-1200 series devices. 3DOF sensors report both,
-      ## regardless of this setting.
-    timeStamped*: IsdBool ## Whether data should be timestamped
-    getInputs*: IsdBool ## Whether button and joystick data should be included
-    getEncoderData*: IsdBool ## Whether raw encoder data should be included.
-    compassCompensation*: cuchar ## Controls how Magnetic Environment Calibration
-      ## is applied. This calibration calculates nominal field strength and dip
-      ## angle for the environment in which the sensor is used. Based on these
-      ## values, the system can assign a weight to compass measurements,
-      ## allowing it to reject bad measurements.
+    compass*: IsdOnOff
+      ## Controls the state of the compass component (only available for
+      ## InertiaCube devices). The compass is only used when the station is is
+      ## configured GEOS or Dual modes. In Fusion mode, compass readings are not
+      ## used, regardless of this setting. When the station is configured for
+      ## full compass mode, the readings produced by the magnetometers inside
+      ## the InertiaCube are used as absolute reference orientation for yaw.
+      ## Compasses can be affected by metallic objects and electronic equipment
+      ## in close proximity to an InertiaCube.
+    inertiaCube*: cint
+      ## InertiaCube associated with this station. If no InertiaCube is
+      ## assigned, this number is `-1`. Otherwise, it is a positive number
+      ## between `1` and `isdMaxStations <#isdMaxStations>`_. Only relevant for
+      ## IS-300 and IS-600 series devices. For IS-900 systems it is always the
+      ## same as the station number, and for InterTrax and InertiaCubes it is
+      ## always `1`.
+    enhancement*: cint
+      ## Perceptual enhancement level (0, 1, or 2)
+    sensitivity*: cint
+      ## Sensitivity level (1 to 4) if `enhancement` is 1 or 2
+    prediction*: cint
+      ## Motion prediction (0 to 50 msec); only supported by IS-300, IS-600,
+      ## IS-900 and InertiaCubes; not available for InterTrax
+    angleFormat*: IsdAngleFormat
+      ## Format of returned orientation angles. Used only for IS-900 and IS-1200
+      ## series devices. 3DOF sensors report both, regardless of this setting.
+    timeStamped*: IsdBool
+      ## Whether data should be timestamped
+    getInputs*: IsdBool
+      ## Whether button and joystick data should be included
+    getEncoderData*: IsdBool
+      ## Whether raw encoder data should be included.
+    compassCompensation*: cuchar
+      ## Controls how Magnetic Environment Calibration is applied. This
+      ## calibration calculates nominal field strength and dip angle for the
+      ## environment in which the sensor is used. Based on these values, the
+      ## system can assign a weight to compass measurements, allowing it to
+      ## reject bad measurements.
       ##
       ## If CompassCompensation is set to `0`, the calibration is ignored and
       ## all compass data is used. Higher values result in a tighter rejection
@@ -225,27 +249,31 @@ type
       ##
       ## Note: the sensor must be calibrated in the ISDemo Compass Calibration
       ## Tool for this setting to have any effect.
-    imuShockSuppression*: cuchar ## Controls how the system deals with sharp
-      ## changes in IMU data that can be caused by shock or impact. Sensors may
-      ## experience momentary rotation rates or accelerations that are outside
-      ## of the specified range, resulting in undesirable behavior. By turning
-      ## on shock suppression you can have the system filter out corrupted data.
+    imuShockSuppression*: cuchar
+      ## Controls how the system deals with sharp changes in IMU data that can
+      ## be caused by shock or impact. Sensors may experience momentary rotation
+      ## rates or accelerations that are outside of the specified range,
+      ## resulting in undesirable behavior. By turning on shock suppression you
+      ## can have the system filter out corrupted data.
       ##
       ## Values 0 (OFF) to 2 are accepted, with higher values resulting in
       ## greater filtering.
-    urmRejectionFactor*: cuchar ## Controls the rejection threshold for
-      ## ultrasonic measurements. Currently implemented only for the IS-900
-      ## PCTracker. Default setting is 4, which results in measurements with
-      ## range errors greater than 4 times the average to be rejected.
+    urmRejectionFactor*: cuchar
+      ## Controls the rejection threshold for ultrasonic measurements. Currently
+      ## implemented only for the IS-900 PCTracker. Default setting is 4, which
+      ## results in measurements with range errors greater than 4 times the
+      ## average to be rejected.
       ##
       ## Note: do not change this setting without first consulting with
       ## InterSense technical support.
-    bReserved2*: cuchar ## Reserved for future use
-    coordFrame*: IsdCoordFrame ## Coordinate frame in which position and
-      ## orientation data is reported
-    accelSensitivity*: cint ## Acceleration sensitivity for 3-DOF tracking with
-      ## InertiaCube products only. It controls how fast tilt correction, using
-      ## accelerometers, is applied. Valid values are 1 to 4, with 2 as default.
+    bReserved2*: cuchar
+      ## Reserved for future use
+    coordFrame*: IsdCoordFrame
+      ## Coordinate frame in which position and orientation data is reported
+    accelSensitivity*: cint
+      ## Acceleration sensitivity for 3-DOF tracking with InertiaCube products
+      ## only. It controls how fast tilt correction, using accelerometers, is
+      ## applied. Valid values are 1 to 4, with 2 as default.
       ##
       ## - Level 1 reduces the amount of tilt correction during movement. While
       ##   it will prevent any effect linear accelerations may have on pitch and
@@ -262,131 +290,171 @@ type
       ##   orientation, but increase stability. This level is appropriate for
       ##   when the user is running, or in other situations where the sensor
       ##   experiences a great deal of movement.
-    fReserved1*: cfloat ## Reserved for future use
-    fReserved2*: cfloat ## Reserved for future use
-    tipOffset*: array[3, cfloat] ## Offset of the reported position from the
-      ## physical point being tracked. This is only applicable system capable of
-      ## tracking position.
-    fReserved3*: cfloat ## Reserved for future use
-    getCameraData*: IsdBool ## Whether to include computed FOV, aperture and
-      ## other camera data in output (default is `isdFalse <#IsdBool>`_)
-    getAuxInputs*: IsdBool ## Whether to include values from auxiliary inputs
-      ## connected to the I2C port in MicroTrax devices
+    fReserved1*: cfloat
+      ## Reserved for future use
+    fReserved2*: cfloat
+      ## Reserved for future use
+    tipOffset*: array[3, cfloat]
+      ## Offset of the reported position from the physical point being tracked.
+      ## This is only applicable system capable of tracking position.
+    fReserved3*: cfloat
+      ## Reserved for future use
+    getCameraData*: IsdBool
+      ## Whether to include computed FOV, aperture and other camera data in
+      ## output (default is `isdFalse <#IsdBool>`_)
+    getAuxInputs*: IsdBool
+      ## Whether to include values from auxiliary inputs connected to the I2C
+      ## port in MicroTrax devices
     getCovarianceData*: IsdBool
-    getExtendedData*: IsdBool ## Retrieving extended data will reduce update
-      ## rate with even a single tracker when using serial communications;
-      ## Ethernet is highly recommended when retrieving extended data
-
+    getExtendedData*: IsdBool
+      ## Retrieving extended data will reduce update rate with even a single
+      ## tracker when using serial communications; Ethernet is highly
+      ## recommended when retrieving extended data
 
 type
   IsdStationData* = object
-    trackingStatus*: cuchar ## Tracking status, represents "Tracking Quality"
-      ## (0-255; 0 if lost)
-    newData*: cuchar ## `1` if data changed since last call to
+    trackingStatus*: cuchar
+      ## Tracking status, represents "Tracking Quality" (0-255; 0 if lost)
+    newData*: cuchar
+      ## `1` if data changed since last call to
       ## `isdGetTrackingData <#isdGetTrackingData>`_, `0` otherwise
-    commIntegrity*: cuchar ## Communication integrity (percentage of packets
-      ## received from tracker, 0-100)
-    batteryState*: IsdBatteryState ## Battery state (wireless devices only; not
-      ## currently used by MiniTrax and MicroTrax stations)
-    euler*: array[3, cfloat] ## Orientation in Euler angles (yaw, pitch, roll)
-    Quaternion*: array[4, cfloat] ## Orientation in Quaternion format (W,X,Y,Z)
-    position*: array[3, cfloat] ## Position in meters
-    timeStamp*: cfloat ## Timestamp in seconds, reported only if requested
-    stillTime*: cfloat ## InertiaCube and PC-Tracker products only, whether
+    commIntegrity*: cuchar
+      ## Communication integrity (percentage of packets received from tracker,
+      ## 0-100)
+    batteryState*: IsdBatteryState
+      ## Battery state (wireless devices only; not currently used by MiniTrax
+      ## and MicroTrax stations)
+    euler*: array[3, cfloat]
+      ## Orientation in Euler angles (yaw, pitch, roll)
+    Quaternion*: array[4, cfloat]
+      ## Orientation in Quaternion format (W,X,Y,Z)
+    position*: array[3, cfloat]
+      ## Position in meters
+    timeStamp*: cfloat
+      ## Timestamp in seconds, reported only if requested
+    stillTime*: cfloat
+      ## InertiaCube and PC-Tracker products only, whether
       ## sensor is still
-    batteryLevel*: cfloat ## Battery voltage, if available
-    compassYaw*: cfloat ## Magnetometer heading, computed based on current
-      ## orientation; available for InertiaCube products only, such as IC2, IC3
-      ## and IC2+
-    buttonState*: array[isdMaxButtons, IsdBool] ## Button states, if requested
-    analogData*: array[isdMaxChannels, cshort] ## Analog data, if requested
-      ## Current hardware is limited to 10 channels, with only 2 being used. The
-      ## only device using this is the IS-900 wand that has a built-in analog
-      ## joystick. Channel 1 is X-axis rotation, channel 2 is Y-axis rotation
-    auxInputs*: array[isdMaxAuxInputs, cuchar] ## Auxiliary data, if requested
-    angularVelBodyFrame*: array[3, cfloat] ## rad/sec, in sensor body coordinate
-      ## frame. Reported as rates about X, Y and Z axes, corresponding to Roll,
-      ## Pitch, Yaw order. This is the processed angular rate, with current
-      ## biases removed. This is the angular rate used to produce orientation
-      ## updates.
-    angularVelNavFrame*: array[3, cfloat] ## rad/sec, in world coordinate frame,
-      ## with boresight and other transformations applied. Reported as rates
-      ## about X, Y and Z axes, corresponding to Roll, Pitch, Yaw order.
-    accelBodyFrame*: array[3, cfloat] ## meter/sec^2, in sensor body coordinate
-      ## frame. These are the accelerometer measurements in the sensor body
-      ## coordinate frame. Only factory calibration is applied to this data,
-      ## gravity component is not removed. Reported as accelerations along X, Y
-      ## and Z axes.
-    accelNavFrame*: array[3, cfloat] ## meters/sec^2, in the navigation (earth)
-      ## coordinate frame. This is the accelerometer measurements with
-      ## calibration, current sensor orientation applied, and gravity
-      ## subtracted. This is the best available estimate of tracker
-      ## acceleration. Reported as accelerations along X, Y and Z axes.
-    velocityNavFrame*: array[3, cfloat] ## meters/sec, 6-DOF systems only.
-      ## Reported as velocity along X, Y and Z axes.
-    angularVelRaw*: array[3, cfloat] ## Raw gyro output, only factory
-      ## calibration is applied. Some errors due to temperature dependant gyro
-      ## bias drift will remain.
-    measQuality*: cuchar ## Ultrasonic Measurement Quality (IS-900 only,
-      ## firmware >= 4.26)
-    bReserved2*: cuchar ## Reserved for future use
-    bReserved3*: cuchar ## Reserved for future use
-    bReserved4*: cuchar ## Reserved for future use
-    timeStampSeconds*: cuint ## Time Stamp in whole seconds
-    timeStampMicroSec*: cuint ## Fractional part of the Time Stamp in
+    batteryLevel*: cfloat
+      ## Battery voltage, if available
+    compassYaw*: cfloat
+      ## Magnetometer heading, computed based on current orientation; available
+      ## for InertiaCube products only, such as IC2, IC3 and IC2+
+    buttonState*: array[isdMaxButtons, IsdBool]
+      ## Button states, if requested
+    analogData*: array[isdMaxChannels, cshort]
+      ## Analog data, if requested Current hardware is limited to 10 channels,
+      ## with only 2 being used. The only device using this is the IS-900 wand
+      ## that has a built-in analog joystick. Channel 1 is X-axis rotation,
+      ## channel 2 is Y-axis rotation
+    auxInputs*: array[isdMaxAuxInputs, cuchar]
+      ## Auxiliary data, if requested
+    angularVelBodyFrame*: array[3, cfloat]
+      ## rad/sec, in sensor body coordinate frame. Reported as rates about X, Y
+      ## and Z axes, corresponding to Roll, Pitch, Yaw order. This is the
+      ## processed angular rate, with current biases removed. This is the
+      ## angular rate used to produce orientation updates.
+    angularVelNavFrame*: array[3, cfloat]
+      ## rad/sec, in world coordinate frame, with boresight and other
+      ## transformations applied. Reported as rates about X, Y and Z axes,
+      ## corresponding to Roll, Pitch, Yaw order.
+    accelBodyFrame*: array[3, cfloat]
+      ## meter/sec^2, in sensor body coordinate frame. These are the
+      ## accelerometer measurements in the sensor body coordinate frame. Only
+      ## factory calibration is applied to this data, gravity component is not
+      ## removed. Reported as accelerations along X, Y and Z axes.
+    accelNavFrame*: array[3, cfloat]
+      ## meters/sec^2, in the navigation (earth) coordinate frame. This is the
+      ## accelerometer measurements with calibration, current sensor orientation
+      ## applied, and gravity subtracted. This is the best available estimate of
+      ## tracker acceleration. Reported as accelerations along X, Y and Z axes.
+    velocityNavFrame*: array[3, cfloat]
+      ## meters/sec, 6-DOF systems only. Reported as velocity along X, Y and Z
+      ## axes.
+    angularVelRaw*: array[3, cfloat]
+      ## Raw gyro output, only factory calibration is applied. Some errors due
+      ## to temperature dependant gyro bias drift will remain.
+    measQuality*: cuchar
+      ## Ultrasonic Measurement Quality (IS-900 only, firmware >= 4.26)
+    bReserved2*: cuchar
+      ## Reserved for future use
+    bReserved3*: cuchar
+      ## Reserved for future use
+    bReserved4*: cuchar
+      ## Reserved for future use
+    timeStampSeconds*: cuint
+      ## Time Stamp in whole seconds
+    timeStampMicroSec*: cuint
+      ## Fractional part of the Time Stamp in
       ## micro-seconds.
-    oSTimeStampSeconds*: cuint ## Data record arrival time stamp based on
-      ## OS time
-    oSTimeStampMicroSec*: cuint ## Reserved for future use; not implemented
-    reserved*: array[55, cfloat] ## Reserved for future use
-    temperature*: cfloat ## Station temperature in degrees C (3DOF sensors only)
-    magBodyFrame*: array[3, cfloat] ## 3DOF sensors only. Magnetometer data
-      ## along the X, Y, and Z axes Units are nominally in Gauss, and factory
-      ## calibration is applied.  Note, however, that most sensors are not
-      ## calibrated precisely since the exact field strength is not necessary
-      ## to for tracking purposes.  Relative magnitudes should be accurate,
-      ## however. Fixed metal compass calibration may rescale the values, as
-      ## well.
-
+    oSTimeStampSeconds*: cuint
+      ## Data record arrival time stamp based on OS time
+    oSTimeStampMicroSec*: cuint
+      ## Reserved for future use; not implemented
+    reserved*: array[55, cfloat]
+      ## Reserved for future use
+    temperature*: cfloat
+      ## Station temperature in degrees C (3DOF sensors only)
+    magBodyFrame*: array[3, cfloat]
+      ## 3DOF sensors only. Magnetometer data along the X, Y, and Z axes. Units
+      ## are nominally in Gauss, and factory calibration is applied. Note,
+      ## however, that most sensors are not calibrated precisely since the exact
+      ## field strength is not necessary to for tracking purposes. Relative
+      ## magnitudes should be accurate, however. Fixed metal compass calibration
+      ## may rescale the values, as well.
 
 type
   IsdCameraEncoderData* = object
     ## Camera encoder data.
-    trackingStatus*: cuchar ## Tracking status
-    bReserved1*: cuchar ## Pack to 4 byte boundary
+    trackingStatus*: cuchar
+      ## Tracking status
+    bReserved1*: cuchar
+      ## Pack to 4 byte boundary
     bReserved2*: cuchar
     bReserved3*: cuchar
-    timecode*: cuint ## Timecode, not implemented yet
-    apertureEncoder*: cint ## Aperture encoder counts, relative to last reset
-      ## or power up
-    focusEncoder*: cint ## Focus encoder counts
-    zoomEncoder*: cint ## Zoom encoded counts
-    timecodeUserBits*: cint ## Time code user bits, not implemented yet
-    aperture*: cfloat ## Computed aperture value
-    focus*: cfloat ## Computed focus value (mm), not implemented yet
-    fOV*: cfloat ## Computed vertical FOV value (degrees)
-    nodalPoint*: cfloat ## Nodal point offset due to zoom and focus (mm)
-    covarianceOrientation*: array[3, cfloat] ## Available only for IS-1200
+    timecode*: cuint
+      ## Timecode, not implemented yet
+    apertureEncoder*: cint
+      ## Aperture encoder counts, relative to last reset or power up
+    focusEncoder*: cint
+      ## Focus encoder counts
+    zoomEncoder*: cint
+      ## Zoom encoded counts
+    timecodeUserBits*: cint
+      ## Time code user bits, not implemented yet
+    aperture*: cfloat
+     ## Computed aperture value
+    focus*: cfloat
+      ## Computed focus value (mm), not implemented yet
+    fOV*: cfloat
+      ## Computed vertical FOV value (degrees)
+    nodalPoint*: cfloat
+      ## Nodal point offset due to zoom and focus (mm)
+    covarianceOrientation*: array[3, cfloat]
+      ## Available only for IS-1200
     covariancePosition*: array[3, cfloat]
-    dwReserved1*: cint ## Reserved for future use
-    dwReserved2*: cint ## Reserved for future use
-    fReserved1*: cfloat ## Reserved for future use
-    fReserved2*: cfloat ## Reserved for future use
-    fReserved3*: cfloat ## Reserved for future use
-    fReserved4*: cfloat ## Reserved for future use
-
+    dwReserved1*: cint
+      ## Reserved for future use
+    dwReserved2*: cint
+      ## Reserved for future use
+    fReserved1*: cfloat
+      ## Reserved for future use
+    fReserved2*: cfloat
+      ## Reserved for future use
+    fReserved3*: cfloat
+      ## Reserved for future use
+    fReserved4*: cfloat
+      ## Reserved for future use
 
   IsdTrackingData* = object
     ## Tracking data for all stations.
     station*: array[isdMaxStations, IsdStationData]
 
-
   IsdCameraData* = object
     ## Camera data for all stations.
     camera*: array[isdMaxStations, IsdCameraEncoderData]
 
-
-  IsdAuxSystem* {.size: sizeof(cint).} = enum ## \
+  IsdAuxSystem* {.size: sizeof(cint).} = enum
     ## Supported auxiliary systems.
     none = 0,
     ultrasonic,
@@ -395,132 +463,225 @@ type
     rf,
     gps
 
-
 type
   IsdHardwareCapability* = object
     ## Hardware capabilities.
-    position*: IsdBool ## Can track position
-    orientation*: IsdBool ## Can track orientation
-    encoders*: IsdBool ## Can support lens encoders
-    prediction*: IsdBool ## Predictive algorithms are available
-    enhancement*: IsdBool ## Enhancement level can be changed
-    compass*: IsdBool ## Compass setting can be changed
-    selfTest*: IsdBool ## Has the self-test capability
-    errorLog*: IsdBool ## Can keep error log
-    ultVolume*: IsdBool ## Can control ultrasonic volume via software
-    ultGain*: IsdBool ## Can control microphone sensitivity by software
-    ultTimeout*: IsdBool ## Can change ultrasonic sampling frequency
-    photoDiode*: IsdBool ## SoniDiscs support photodiode
-    maxStations*: cint ## Number of supported stations
-    maxImus*: cint ## Number of supported IMUs
-    maxFPses*: cint ## Maximum number of Fixed Position Sensing Elements
+    position*: IsdBool
+      ## Can track position
+    orientation*: IsdBool
+      ## Can track orientation
+    encoders*: IsdBool
+      ## Can support lens encoders
+    prediction*: IsdBool
+      ## Predictive algorithms are available
+    enhancement*: IsdBool
+      ## Enhancement level can be changed
+    compass*: IsdBool
+      ## Compass setting can be changed
+    selfTest*: IsdBool
+      ## Has the self-test capability
+    errorLog*: IsdBool
+      ## Can keep error log
+    ultVolume*: IsdBool
+      ## Can control ultrasonic volume via software
+    ultGain*: IsdBool
+      ## Can control microphone sensitivity by software
+    ultTimeout*: IsdBool
+      ## Can change ultrasonic sampling frequency
+    photoDiode*: IsdBool
+      ## SoniDiscs support photodiode
+    maxStations*: cint
+      ## Number of supported stations
+    maxImus*: cint
+      ## Number of supported IMUs
+    maxFPses*: cint
+      ## Maximum number of Fixed Position Sensing Elements
       ## (constellation/galaxy)
-    maxChannels*: cint ## Max. number of analog channels supported per station
-    maxButtons*: cint ## Maximum number of digital button inputs per station
-    measData*: IsdBool ## Can provide measurement data
-    diagData*: IsdBool ## Can provide diagnostic data
-    pseConfig*: IsdBool ## Supports PSE configuration/reporting tools
-    configLock*: IsdBool ## Supports configuration locking
-    ultMaxRange*: cfloat ## Maximum ultrasonic range
-    fReserved2*: cfloat ## Reserved for future use
-    fReserved3*: cfloat ## Reserved for future use
-    fReserved4*: cfloat ## Reserved for future use
-    compassCal*: IsdBool ## Supports dynamic compass calibration
-    bReserved2*: IsdBool ## Reserved for future use
-    bReserved3*: IsdBool ## Reserved for future use
-    bReserved4*: IsdBool ## Reserved for future use
-    dwReserved1*: cint ## Reserved for future use
-    dwReserved2*: cint ## Reserved for future use
-    dwReserved3*: cint ## Reserved for future use
-    dwReserved4*: cint ## Reserved for future use
-
+    maxChannels*: cint
+      ## Max. number of analog channels supported per station
+    maxButtons*: cint
+      ## Maximum number of digital button inputs per station
+    measData*: IsdBool
+      ## Can provide measurement data
+    diagData*: IsdBool
+      ## Can provide diagnostic data
+    pseConfig*: IsdBool
+      ## Supports PSE configuration/reporting tools
+    configLock*: IsdBool
+      ## Supports configuration locking
+    ultMaxRange*: cfloat
+      ## Maximum ultrasonic range
+    fReserved2*: cfloat
+      ## Reserved for future use
+    fReserved3*: cfloat
+      ## Reserved for future use
+    fReserved4*: cfloat
+      ## Reserved for future use
+    compassCal*: IsdBool
+      ## Supports dynamic compass calibration
+    bReserved2*: IsdBool
+      ## Reserved for future use
+    bReserved3*: IsdBool
+      ## Reserved for future use
+    bReserved4*: IsdBool
+      ## Reserved for future use
+    dwReserved1*: cint
+      ## Reserved for future use
+    dwReserved2*: cint
+      ## Reserved for future use
+    dwReserved3*: cint
+      ## Reserved for future use
+    dwReserved4*: cint
+      ## Reserved for future use
 
   IsdHardwareInfo* = object
     ## System hardware information.
-    valid*: IsdBool ## Set to `isdTrue <#IsdBool>`_ if
+    valid*: IsdBool
+      ## Set to `isdTrue <#IsdBool>`_ if
       ## `isdGetSystemHardwareInfo <#isdGetSystemHardwareInfo>`_ succeeded
-    trackerType*: IsdSystemType ## See `IsdSystemType <#IsdSystemType>`_
-    trackerModel*: IsdSystemModel ## See `IsdSystemModel <#IsdSystemModel>`_
-    port*: cint ## Hardware port number (1 for COM1/ttyS0, etc.)
-    iftype*: IsdInterfaceType ## Hardware interface (RS232, USB, etc.)
-    onHost*: IsdBool ## `isdTrue <#IsdBool>`_ if tracking algorithms are
-      ## executed in the library
-    auxSystem*: IsdAuxSystem ## Position tracking hardware
+    trackerType*: IsdSystemType
+      ## See `IsdSystemType <#IsdSystemType>`_
+    trackerModel*: IsdSystemModel
+      ## See `IsdSystemModel <#IsdSystemModel>`_
+    port*: cint
+      ## Hardware port number (1 for COM1/ttyS0, etc.)
+    iftype*: IsdInterfaceType
+      ## Hardware interface (RS232, USB, etc.)
+    onHost*: IsdBool
+      ## `isdTrue <#IsdBool>`_ if tracking algorithms are executed in the
+      ## library.
+    auxSystem*: IsdAuxSystem
+      ## Position tracking hardware
       ## (see `IsdAuxSystemType <#IsdAuxSystemType>`_)
-    firmwareRev*: cfloat ## Firmware revision
-    modelName*: array[128, cchar] ## Model name string
-    capability*: IsdHardwareCapability ## Hardware capabilities
-    bReserved1*: IsdBool ## Reserved for future use
-    bReserved2*: IsdBool ## Reserved for future use
-    bReserved3*: IsdBool ## Reserved for future use
-    bReserved4*: IsdBool ## Reserved for future use
-    baudRate*: cuint ## Serial port baud rate
-    numTestLevels*: cint ## Number of self test levels
-    dwReserved3*: cint ## Reserved for future use
-    dwReserved4*: cint ## Reserved for future use
-    fReserved1*: cfloat ## Reserved for future use
-    fReserved2*: cfloat ## Reserved for future use
-    fReserved3*: cfloat ## Reserved for future use
-    fReserved4*: cfloat ## Reserved for future use
-    cReserved1*: array[128, cchar] ## Reserved for future use
-    cReserved2*: array[128, cchar] ## Reserved for future use
-    cReserved3*: array[128, cchar] ## Reserved for future use
-    cReserved4*: array[128, cchar] ## Reserved for future use
-
+    firmwareRev*: cfloat
+      ## Firmware revision
+    modelName*: array[128, cchar]
+      ## Model name string
+    capability*: IsdHardwareCapability
+      ## Hardware capabilities
+    bReserved1*: IsdBool
+      ## Reserved for future use
+    bReserved2*: IsdBool
+      ## Reserved for future use
+    bReserved3*: IsdBool
+      ## Reserved for future use
+    bReserved4*: IsdBool
+      ## Reserved for future use
+    baudRate*: cuint
+      ## Serial port baud rate
+    numTestLevels*: cint
+      ## Number of self test levels
+    dwReserved3*: cint
+      ## Reserved for future use
+    dwReserved4*: cint
+      ## Reserved for future use
+    fReserved1*: cfloat
+      ## Reserved for future use
+    fReserved2*: cfloat
+      ## Reserved for future use
+    fReserved3*: cfloat
+      ## Reserved for future use
+    fReserved4*: cfloat
+      ## Reserved for future use
+    cReserved1*: array[128, cchar]
+      ## Reserved for future use
+    cReserved2*: array[128, cchar]
+      ## Reserved for future use
+    cReserved3*: array[128, cchar]
+      ## Reserved for future use
+    cReserved4*: array[128, cchar]
+      ## Reserved for future use
 
 type
   IsdStationCapability* = object
     ## Station capabilities information.
-    position*: IsdBool ## Whether the station can track position
-    orientation*: IsdBool ## Wether the station can track orientation
-    encoders*: cint ## Number of lens encoders (`0` = none are available)
-    numChannels*: cint ## Number of analog channels supported by this station,
-      ## wand has 2 (joystick axes)
-    numButtons*: cint ## Number of digital button inputs supported by this
-      ## station
-    auxInputs*: cint ## Number of auxiliary input channels (OEM products)
-    auxOutputs*: cint ## Number of auxiliary output channels (OEM products)
-    compass*: IsdBool ## Whether the station has a compass
-    bReserved1*: IsdBool ## Reserved for future use
-    bReserved2*: IsdBool ## Reserved for future use
-    bReserved3*: IsdBool ## Reserved for future use
-    bReserved4*: IsdBool ## Reserved for future use
-    dwReserved1*: cint ## Reserved for future use
-    dwReserved2*: cint ## Reserved for future use
-    dwReserved3*: cint ## Reserved for future use
-    dwReserved4*: cint ## Reserved for future use
-
+    position*: IsdBool
+      ## Whether the station can track position
+    orientation*: IsdBool
+      ## Wether the station can track orientation
+    encoders*: cint
+      ## Number of lens encoders (`0` = none are available)
+    numChannels*: cint
+      ## Number of analog channels supported by this station, wand has 2
+      ## (joystick axes)
+    numButtons*: cint
+      ## Number of digital button inputs supported by this station
+    auxInputs*: cint
+      ## Number of auxiliary input channels (OEM products)
+    auxOutputs*: cint
+      ## Number of auxiliary output channels (OEM products)
+    compass*: IsdBool
+      ## Whether the station has a compass
+    bReserved1*: IsdBool
+      ## Reserved for future use
+    bReserved2*: IsdBool
+      ## Reserved for future use
+    bReserved3*: IsdBool
+      ## Reserved for future use
+    bReserved4*: IsdBool
+      ## Reserved for future use
+    dwReserved1*: cint
+      ## Reserved for future use
+    dwReserved2*: cint
+      ## Reserved for future use
+    dwReserved3*: cint
+      ## Reserved for future use
+    dwReserved4*: cint
+      ## Reserved for future use
 
 type
   IsdStationHardwareInfo* = object
     ## Station hardware information.
-    Valid*: IsdBool ## Will be set to `isdTrue <#IsdBool>`_ if
+    Valid*: IsdBool
+      ## Will be set to `isdTrue <#IsdBool>`_ if
       ## `isdGetStationHardwareInfo <#isdGetStationHardwareInfo>`_ succeeded
-    id*: cint ## Unique number identifying a station. It is the same as that
-      ## passed to the `isdSetStationConfig` and `isdGetStationConfig` functions
-      ## and can be `1` to `isdMaxStations <#isdMaxStations>`_
-    descVersion*: array[20, cchar] ## Station Descriptor version
-    firmwareRev*: cfloat ## Station firmware revision
-    serialNum*: cint ## Station serial number
-    calDate*: array[20, cchar] ## Last factory calibration date (mm/dd/yyyy)
-    port*: cint ## Hardware port number
-    capability*: IsdStationCapability ## Station capabilities
-    bReserved1*: IsdBool ## Reserved for future use
-    bReserved2*: IsdBool ## Reserved for future use
-    bReserved3*: IsdBool ## Reserved for future use
-    bReserved4*: IsdBool ## Reserved for future use
-    stationType*: cint # Station type
+    id*: cint
+      ## Unique number identifying a station. It is the same as that passed to
+      ## the `isdSetStationConfig` and `isdGetStationConfig` functions and can
+      ## be `1` to `isdMaxStations <#isdMaxStations>`_
+    descVersion*: array[20, cchar]
+      ## Station Descriptor version
+    firmwareRev*: cfloat
+      ## Station firmware revision
+    serialNum*: cint
+      ## Station serial number
+    calDate*: array[20, cchar]
+      ## Last factory calibration date (mm/dd/yyyy)
+    port*: cint
+      ## Hardware port number
+    capability*: IsdStationCapability
+      ## Station capabilities
+    bReserved1*: IsdBool
+      ## Reserved for future use
+    bReserved2*: IsdBool
+      ## Reserved for future use
+    bReserved3*: IsdBool
+      ## Reserved for future use
+    bReserved4*: IsdBool
+      ## Reserved for future use
+    stationType*: cint
+      # Station type
     deviceId*: cint
-    dwReserved3*: cint ## Reserved for future use
-    dwReserved4*: cint ## Reserved for future use
-    fReserved1*: cfloat ## Reserved for future use
-    fReserved2*: cfloat ## Reserved for future use
-    fReserved3*: cfloat ## Reserved for future use
-    fReserved4*: cfloat ## Reserved for future use
-    cReserved1*: array[128, cchar] ## Reserved for future use
-    cReserved2*: array[128, cchar] ## Reserved for future use
-    cReserved3*: array[128, cchar] ## Reserved for future use
-    cReserved4*: array[128, cchar] ## Reserved for future use
+    dwReserved3*: cint
+      ## Reserved for future use
+    dwReserved4*: cint
+      ## Reserved for future use
+    fReserved1*: cfloat
+      ## Reserved for future use
+    fReserved2*: cfloat
+      ## Reserved for future use
+    fReserved3*: cfloat
+      ## Reserved for future use
+    fReserved4*: cfloat
+      ## Reserved for future use
+    cReserved1*: array[128, cchar]
+      ## Reserved for future use
+    cReserved2*: array[128, cchar]
+      ## Reserved for future use
+    cReserved3*: array[128, cchar]
+      ## Reserved for future use
+    cReserved4*: array[128, cchar]
+      ## Reserved for future use
 
   IsdPortWirelessInfo* = object
     ## Wireless hardware information.
@@ -529,15 +690,20 @@ type
     wireless*: IsdBool
     channel*: cint
     id*: array[4, cint]
-    radioVersion*: cint ## Type of radio hardware:
+    radioVersion*: cint
+      ## Type of radio hardware:
       ## - 15 or 31: 2.4 GHz (Aerocomm, radio used with older MiniTrax trackers)
       ## - 128: 2.4 GHz (Chipcon, MicroTrax only)
       ## - 144: 900 MHz (MicroTrax only)
       ## - 160: 868 MHz (MicroTrax only)
-    dReserved1*: cint ## Reserved for future use
-    dReserved2*: cint ## Reserved for future use
-    dReserved3*: cint ## Reserved for future use
-    dReserved4*: cint ## Reserved for future use
+    dReserved1*: cint
+      ## Reserved for future use
+    dReserved2*: cint
+      ## Reserved for future use
+    dReserved3*: cint
+      ## Reserved for future use
+    dReserved4*: cint
+      ## Reserved for future use
 
 
 proc isdOpenTracker*(hParent: IsdHwnd; commPort: cint; infoScreen: IsdBool;
