@@ -1,4 +1,4 @@
-## *io-isense* - Nim bindings for the InterSense SDK.
+## *isense* - Nim bindings for the InterSense SDK.
 ##
 ## This file is part of the `Nim I/O <http://nimio.us>`_ package collection.
 ## See the file LICENSE included in this distribution for licensing details.

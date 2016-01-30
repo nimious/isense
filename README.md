@@ -1,13 +1,13 @@
-# io-isense
+# isense
 
 Nim bindings for the InterSense SDK.
 
-![io-isense Logo](logo.png)
+![isense Logo](docs/logo.png)
 
 
 ## About
 
-io-isense contains bindings to the InterSense SDK for the
+This package contains bindings to the InterSense SDK for the
 [Nim](http://nim-lang.org) programming language. InterSense provides a number of
 inertial, magnetic and GPS 3-dof and 6-dof position tracking devices, such as
 the InertiaCube series and IS series systems.
@@ -15,8 +15,8 @@ the InertiaCube series and IS series systems.
 
 ## Supported Platforms
 
-io-isense was last built and tested with **InterSense SDK 4.2381**. The bindings
-support the following platforms:
+This package was last built and tested with **InterSense SDK 4.2381**. The
+bindings support the following platforms:
 
 - Linux
 - Mac OSX
@@ -47,7 +47,7 @@ site and copy the 32-bit or 64-bit `isense.dll` into your program's folder.
 
 ## Dependencies
 
-io-isense does not have any dependencies to other Nim packages at this time.
+This package does not have any dependencies to other Nim packages at this time.
 
 
 ## Usage
@@ -60,8 +60,8 @@ import spnav
 
 ## Support
 
-Please [file an issue](https://github.com/nimious/io-isense/issues), submit a
-[pull request](https://github.com/nimious/io-isense/pulls?q=is%3Aopen+is%3Apr)
+Please [file an issue](https://github.com/nimious/isense/issues), submit a
+[pull request](https://github.com/nimious/isense/pulls?q=is%3Aopen+is%3Apr)
 or email us at info@nimio.us if this package is out of date or contains bugs.
 For all other issues related to Oculus devices or the device driver software
 visit the Oculus web sites below.
